@@ -9,8 +9,9 @@
 
     if ( ! defined( 'NV_IS_ADMIN_QL' ) ) die( 'Stop!!!' );
 	$page_title = $lang_module['dmc_page_title'];
+	Header( "Location: " . NV_BASE_ADMINURL . "index.php?" . NV_NAME_VARIABLE . "=" . $module_name . "&" .NV_OP_VARIABLE . "=lienchi"); die();
 	
-	$contents = "Xin chào các bạn";
+	$contents = "";
 	
 	include (NV_ROOTDIR . "/includes/header.php");
 	echo nv_admin_theme($contents);

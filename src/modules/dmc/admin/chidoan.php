@@ -19,34 +19,80 @@
 	$my_head .= "</script>\n";
 	
 	$contents = "";
-	$contents .="
-		<form method=\"post\">
-			<table class=\"tab1\">
-		    	<thead>
-		        	<tr>
-		            	<td colspan=\"2\">Thông tin học sinh mới</td>
-		         	</tr>
-		      	</thead>
-		      	<tbody>
-		        	<tr>
-		            	<td style=\"width: 150px;\">Tên học sinh</td>
-		            	<td style=\"background: #eee;\"><input name=\"hoten\" style=\"width: 470px;\" value=\"" . $data['hoten'] . "\" type=\"text\"></td>
-		         	</tr>
-		      	</tbody>
-		      	<tbody>
-		        	<tr>
-		            	<td>Ngày sinh</td>
-		            	<td><input id=\"ngaysinh\" name=\"ngaysinh\" style=\"width: 470px;\" value=\"" . $data['ngaysinh'] . "\" type=\"text\" /></td>
-		         	</tr>
-		      	</tbody>		      
-		        <tr>
-					<td colspan=\"2\" align=\"center\" style=\"background: #eee;\">\n
-		               	<input name=\"confirm\" value=\"Lưu\" type=\"submit\">\n
-		               	<input type=\"hidden\" name=\"add\" value=\"1\">\n
-		            </td>\n
-		      	</tr>\n
-		   	</table>\n
-		</form>\n";	
+	$error = "";
+	
+	$xtpl = new XTemplate("chidoan.tpl", NV_ROOTDIR . "/themes/" . $global_config['module_theme'] . "/modules/" . $module_name);
+	$xtpl->assign('LANG', $lang_module);
+	//echo "/themes/" . $global_config['module_theme'] . "/modules/" . $module_name;
+	$xtpl->assign('URL_DEL', "index.php?" . NV_NAME_VARIABLE . "=" . $module_name . "&" . NV_OP_VARIABLE . "=cddel&id=");
+	$xtpl->assign('URL_DEL_BACK', "index.php?" . NV_NAME_VARIABLE . "=" . $module_name. "&" . NV_OP_VARIABLE ."=chidoan" );
+		
+	//INSERT DATA
+	$data = array();
+	$data['cd_name'] = filter_text_input( 'cd_name', 'post', '' );
+	$data['cd_lcid'] = filter_text_input( 'cd_lcid', 'post', '' );
+	
+	if ( ($nv_Request->get_int( 'add', 'post', 0 ) == 1) )
+	{
+		if ( $data['cd_name'] == "" )
+		{
+	  		$error = $lang_module['lc_error_insert'];
+		}		   	
+		else
+		{	      	
+	
+	      	$query = "INSERT INTO `" . NV_PREFIXLANG . "_" . $module_data . "_chidoan`
+	      	(
+	         	`cd_name`, 
+	         	`cd_lcid`
+	      	)
+	      	VALUES
+	      	(	        	       
+		        " . $db->dbescape( $data['cd_name'] ) . ",        
+		        " . $db->dbescape( $data['cd_lcid'] ) . "
+	      	)";
+	      	if ( $db->sql_query_insert_id( $query ) )
+	      	{
+	         	$db->sql_freeresult();
+	         	Header( "Location: " . NV_BASE_ADMINURL . "index.php?" . NV_NAME_VARIABLE . "=" . $module_name . "&" .NV_OP_VARIABLE . "=chidoan"); die();
+	      	}
+			else
+	      	{
+	        	$error = $lang_module['lc_error_noinsert'];
+	      	}
+		} 		  		   		   		      		 
+	}
+	
+	//GIAO DIEN
+	if( $error )
+	{
+   		$contents .= "
+   			<div class=\"quote\" style=\"width: 780px;\">\n
+        		<blockquote class=\"error\">
+            		<span>".$error."</span>
+           		</blockquote>
+          	</div>\n
+            <div class=\"clear\">
+            </div>";
+	}
+	else
+	{
+		$chidoan = getAllChiDoan();
+		foreach ($chidoan as $cd) {			
+			$xtpl->assign('DATA', $cd);
+   			$xtpl->parse('main.loop');
+		}
+		
+		$lienchi = getAllLienChi();
+		//print($lienchi);
+		foreach ($lienchi as $lc) {
+			$xtpl->assign('DATA1', $lc);
+   			$xtpl->parse('main.loop1');
+		}
+		
+		$xtpl->parse('main');
+		$contents = $xtpl->text('main');
+	}	
 	
 	include (NV_ROOTDIR . "/includes/header.php");
 	echo nv_admin_theme($contents);

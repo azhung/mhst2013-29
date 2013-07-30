@@ -81,7 +81,7 @@
 		foreach ($lienchi as $lc) {			
 			$xtpl->assign('DATA', $lc);
    			$xtpl->parse('main.loop');
-		}
+		}		
 		$xtpl->parse('main');
 		$contents = $xtpl->text('main');
 	}	

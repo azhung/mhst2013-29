@@ -51,4 +51,23 @@ function getAllKhoaHoc( )
    return $data ;
 }
 
+function getAllChiDoan( )
+{
+   global $module_data, $db;
+
+   $data = array() ;
+   $sql = "SELECT * FROM `" . NV_PREFIXLANG . "_" . $module_data . "_chidoan` ";
+   $result = $db->sql_query( $sql );   
+   
+   while ( list ( $cd_id, $cd_name, $cd_lcid ) = $db->sql_fetchrow($result) )
+   {
+      $data[] = array (
+         "cd_id" => $cd_id,
+         "cd_name" => $cd_name,
+         "cd_lcid" => $cd_lcid                       
+      );	  
+   }
+   return $data ;
+}
+
 ?>

@@ -13,7 +13,7 @@
 	$submenu['khoahoc'] = "Khóa học";
 	$submenu['chidoan'] = "Chi đoàn";
 
-	$allow_func = array('main', 'lienchi', 'khoahoc', 'chidoan', 'lcdel', 'khdel');	
+	$allow_func = array('main', 'lienchi', 'khoahoc', 'chidoan', 'lcdel', 'khdel', 'cddel');	
 	
 	define( 'NV_IS_ADMIN_QL', true );
 	require_once NV_ROOTDIR . "/modules/" . $module_name . '/global.functions.php';

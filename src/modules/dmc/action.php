@@ -28,8 +28,8 @@
 		`kh_id` int(11) NOT NULL AUTO_INCREMENT,
 		`kh_name` nvarchar(255) NOT NULL,
 		`kh_hdt` nvarchar(255) NOT NULL,
-		`kh_namvao` varchar(10) NULL,
-		`kh_namra` varchar(10) NULL,
+		`kh_namvao` varchar(15) NULL,
+		`kh_namra` varchar(15) NULL,
 		PRIMARY KEY(`kh_id`)
 	) ENGINE=MyISAM  DEFAULT CHARSET=utf8";
 	
@@ -37,7 +37,7 @@
 	$sql_create_module[] = "CREATE TABLE `" . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_chidoan` (
 		`cd_id` int(11) NOT NULL AUTO_INCREMENT,
 		`cd_name` nvarchar(255) NOT NULL,
-		`cd_lcid` int(11) NOT NULL,
+		`cd_lcid` nvarchar(255) NOT NULL,
 		PRIMARY KEY(`cd_id`)
 	) ENGINE=MyISAM  DEFAULT CHARSET=utf8";		
 ?>	
