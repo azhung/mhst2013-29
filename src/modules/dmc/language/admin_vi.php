@@ -44,4 +44,7 @@ $lang_module['kh_ngayvao'] = "Ngày vào học";
 $lang_module['kh_ngayra'] = "Ngày ra";
 $lang_module['url'] = NV_BASE_SITEURL;
 
+$lang_module['cd_name'] = "Tên chi đoàn";
+$lang_module['cd_lienchi'] = "Tên liên chi đoàn";
+
 ?>
