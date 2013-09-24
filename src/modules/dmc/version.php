@@ -16,7 +16,7 @@
 		"is_sysmod" => 0,
 		"virtual" => 1,
 		"version" => "3.0.01",
-		"date" => "Wed, 26 Jan 2011 12:47:15 GMT",
+		"date" => "Wed, 26 July 2013 12:47:15 GMT",
 		"author" => "MHST2013-29 (mhst2013-29@googlegroups.com)",
 		"note"=>"",
 		"uploads_dir" => array(
